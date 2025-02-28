@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des Comptes</title>
+  <link rel="stylesheet" href="/css/gestion_comptes.css">
+</head>
+<body>
+  <header>
+    <h1>Gestion des Comptes</h1>
+  </header>
+
+  <nav>
+    <a href="#">Accueil</a>
+    <a href="#">Facture & Paiement</a>
+    <a href="#">Comptes</a>
+    <a href="#">Aide</a>
+  </nav>
+
+  <main>
+    <!-- Formulaire de création de compte -->
+    <div class="form-container">
+      <h2>Créer un nouveau compte</h2>
+      <form id="accountForm">
+        <label for="username">Nom d'utilisateur</label>
+        <input type="text" id="username" name="username" placeholder="Entrez le nom d'utilisateur" required>
+        
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Entrez votre email" required>
+        
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+        
+        <button type="submit">Créer le compte</button>
+      </form>
+    </div>
+
+    <!-- Section affichant la liste des comptes créés -->
+    <div class="account-list" id="accountList">
+      <h2>Liste des comptes créés</h2>
+      <!-- Les comptes s'ajoutent ici dynamiquement -->
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Gestion des Comptes. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    // Gestion du formulaire et ajout dynamique dans la liste des comptes
+    document.getElementById("accountForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      // Récupération des valeurs saisies
+      const username = document.getElementById("username").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      
+      // Création d'un objet représentant le compte (attention: ne jamais stocker de mot de passe en clair en production)
+      const account = {
+        username: username,
+        email: email,
+        password: password
+      };
+      
+      // Ajout du compte à la liste
+      addAccountToList(account);
+      
+      // Réinitialisation du formulaire
+      document.getElementById("accountForm").reset();
+    });
+
+    // Fonction pour ajouter un compte dans la section "Liste des comptes"
+    function addAccountToList(account) {
+      const accountList = document.getElementById("accountList");
+      const accountItem = document.createElement("div");
+      accountItem.className = "account-item";
+      accountItem.innerHTML = "<strong>Nom d'utilisateur :</strong> " + account.username + "<br>" +
+                              "<strong>Email :</strong> " + account.email;
+      accountList.appendChild(accountItem);
+    }
+  </script>
+</body>
+</html>
